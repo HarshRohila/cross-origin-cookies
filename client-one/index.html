@@ -9,14 +9,25 @@
 <body>
 	<h1>Accounts</h1>
 	<input type="text">
-	<button>Login</button>
+	<button class="login">Login</button>
+	<button class="logout">Logout</button>
 
 	<script>
-		const API_URL = 'https://40ee0cf027b8.ngrok.io';
+
+		function sendCookieToParent() {
+			const userName = localStorage.getItem('userName');
+			window.parent.postMessage(userName, '*');
+		}
+
+		const API_URL = 'https://6533bfdf0f00.ngrok.io';
 
 		function main() {
-			var btn = document.querySelector('button');
-			btn.addEventListener('click', onLogin);
+			sendCookieToParent();
+			var loginBtn = document.querySelector('button.login');
+			loginBtn.addEventListener('click', onLogin);
+
+			const logoutBtn = document.querySelector('button.logout');
+			logoutBtn.addEventListener('click', onLogout);
 		}
 
 		function log(data) {
@@ -26,7 +37,13 @@
 		function loginSuccess(data) {
 			log(data);
 			const userName = getUserName();
+			localStorage.setItem('userName', userName);
 			alert(`Login Successful, Welcome ${userName}`);
+		}
+
+		function onLogout() {
+			localStorage.setItem('userName', '');
+			alert('Logged Out!');
 		}
 
 		function onLogin() {
