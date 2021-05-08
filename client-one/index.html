@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Client One</title>
+</head>
+<body>
+	<h1>Accounts</h1>
+	<input type="text">
+	<button>Login</button>
+
+	<script>
+		const API_URL = 'https://40ee0cf027b8.ngrok.io';
+
+		function main() {
+			var btn = document.querySelector('button');
+			btn.addEventListener('click', onLogin);
+		}
+
+		function log(data) {
+			console.log(data)
+		}
+
+		function loginSuccess(data) {
+			log(data);
+			const userName = getUserName();
+			alert(`Login Successful, Welcome ${userName}`);
+		}
+
+		function onLogin() {
+				const options = {
+					credentials: 'include'
+				}
+
+				const userName = getUserName();
+
+				fetch(`${API_URL}/login?name=${userName}`, options)
+					.then(res => res.json())
+					.then(loginSuccess)
+					.catch(log)
+		}
+
+		function getUserName() {
+			var input = document.querySelector('input');
+			return input.value;
+		}
+
+		main();
+	</script>
+</body>
+</html>

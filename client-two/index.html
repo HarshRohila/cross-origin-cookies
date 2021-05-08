@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Client Two</title>
+</head>
+<body>
+	<h1>Engage</h1>
+
+	<script>
+		const ACCOUNTS_DOMAIN = 'https://6cd48352455d.ngrok.io/client-one/index.html';
+
+		function isAuthenticated() {
+			const iframe = document.createElement('iframe');
+			iframe.src = ACCOUNTS_DOMAIN;
+			// iframe.style.display = 'none';
+			document.body.append(iframe);
+		}
+	</script>
+</body>
+</html>
